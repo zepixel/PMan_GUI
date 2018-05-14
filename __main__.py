@@ -4,13 +4,19 @@ from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProper
 from kivy.vector import Vector
 from kivy.clock import Clock
 
-class session_manager
-
-
+class main_body(Widget):
+    pass
 
 class PmanApp(App):
+    
     def build(self):
-        return GUI
+        body = main_body()
+
+        return body
+
+
+if __name__== '__main__':
+    PmanApp().run()
 
 
 
