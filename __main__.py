@@ -3,14 +3,15 @@ from kivy.uix.widget import Widget
 from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty
 from kivy.vector import Vector
 from kivy.clock import Clock
+from kivy.uix.boxlayout import BoxLayout
 
-class main_body(Widget):
+class Main_body(BoxLayout):
     pass
 
 class PmanApp(App):
     
     def build(self):
-        body = main_body()
+        body = Main_body()
 
         return body
 
