@@ -5,6 +5,11 @@ from kivy.vector import Vector
 from kivy.clock import Clock
 from kivy.uix.boxlayout import BoxLayout
 
+
+class Main_header(Widget):
+    pass
+
+
 class Main_body(BoxLayout):
     pass
 
