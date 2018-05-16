@@ -1,21 +1,24 @@
 #:kivy 1.8.0
 
+
+
 <Main_header>:
     orientation:"horizontal"
-    
-    Button:
-        size_hint_x: 0.2
-        text: "B"
 
     Label:
-        text: "hello"
+        text: "Accès Programme Principal"
+    Button:
+        id: labell
+        size_hint_x: 0.1
+        text: "X"
+
 
 <Main_body>:
     orientation: "vertical"
   
     Main_header:
         id:header
-        size_hint_y: 0.2
+        size_hint_y: 0.05
 
     Label:
         text: "lol"
