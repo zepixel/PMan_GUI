@@ -7,7 +7,7 @@ from kivy.uix.boxlayout import BoxLayout
 
 
 class Main_header(Widget):
-    pass
+    pass 
 
 
 class Main_body(BoxLayout):
