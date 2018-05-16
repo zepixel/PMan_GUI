@@ -6,7 +6,7 @@ from kivy.clock import Clock
 from kivy.uix.boxlayout import BoxLayout
 
 
-class Main_header(Widget):
+class Main_header(BoxLayout):
     pass
 
 
