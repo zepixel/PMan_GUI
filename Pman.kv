@@ -1,16 +1,36 @@
 #:kivy 1.8.0
 
+<Main_Footer>:
+    orientation:"horizontal"
+
+    canvas:
+        Color:
+            rgb: 0.128,0.128,0.128
+        Rectangle:
+            size: self.size
+            pos: self.pos
 
 
 <Main_header>:
     orientation:"horizontal"
 
+    canvas:
+        Color:
+            rgb: 0.128,0.128,0.128
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            
+
     Label:
-        text: "Accès Programme Principal"
+        text: "Acces Programme Principal"
+
+
     Button:
-        id: labell
+        id: Quit
         size_hint_x: 0.1
         text: "X"
+        on_release: app.stop()
 
 
 <Main_body>:
@@ -18,10 +38,14 @@
   
     Main_header:
         id:header
-        size_hint_y: 0.05
+        size_hint_y: 0.1
 
     Label:
         text: "lol"
+        
     
+    Main_Footer:
+        id: main_footer
+        size_hint_y: 0.05
 
 
