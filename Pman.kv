@@ -10,6 +10,11 @@
             size: self.size
             pos: self.pos
 
+    Label:
+        id:Footer_Label
+        text: "Status"
+        font_size:12
+
 
 <Main_header>:
     orientation:"horizontal"
@@ -21,16 +26,38 @@
             size: self.size
             pos: self.pos
             
-
     Label:
         text: "Acces Programme Principal"
-
 
     Button:
         id: Quit
         size_hint_x: 0.1
         text: "X"
         on_release: app.stop()
+
+
+<Project_Search>:
+    TextInput:
+        text:"Search"
+
+
+
+<Project_Manager>:
+    orientation:"vertical"
+
+    canvas.before:
+        Color:
+            rgb: 1,0,0
+        Rectangle:
+            pos:self.pos
+            size:self.size
+
+    Project_Search:
+        size_hint_x: 1
+        pos: self.pos
+    
+    Label:
+        text:"projects"
 
 
 <Main_body>:
@@ -40,10 +67,28 @@
         id:header
         size_hint_y: 0.1
 
-    Label:
-        text: "lol"
+    BoxLayout:
         
-    
+        orientation:"horizontal"
+        pos: self.pos
+        size: self.size
+
+        canvas:
+            Color:
+                rgb: 0.2,0.2,0.2
+            Rectangle:
+                pos: self.pos
+                size: self.size
+
+        Project_Manager:
+            pos:self.pos
+            size:self.size
+            size_hint_x:0.2
+
+
+        Label:
+            text:"hello"
+            
     Main_Footer:
         id: main_footer
         size_hint_y: 0.05
