@@ -18,7 +18,6 @@
 
 <Main_header>:
     orientation:"horizontal"
-
     canvas:
         Color:
             rgb: 0.128,0.128,0.128
@@ -67,11 +66,10 @@
         id:header
         size_hint_y: 0.1
 
-    BoxLayout:
+    AnchorLayout:
         
-        orientation:"horizontal"
-        pos: self.pos
-        size: self.size
+        anchor_x: "left"
+        anchor_y: "top"
 
         canvas:
             Color:
