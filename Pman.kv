@@ -64,13 +64,11 @@
   
     Main_header:
         id:header
-        size_hint_y: 0.1
+        size_hint_y:None
+        size_hint_x:1
 
-    AnchorLayout:
-        
-        anchor_x: "left"
-        anchor_y: "top"
-
+    BoxLayout:
+                
         canvas:
             Color:
                 rgb: 0.2,0.2,0.2
@@ -80,8 +78,9 @@
 
         Project_Manager:
             pos:self.pos
-            size:self.size
-            size_hint_x:0.2
+            size:10,10
+            size_hint_x:None
+            size_hint_y:None
 
 
         Label:
@@ -89,6 +88,8 @@
             
     Main_Footer:
         id: main_footer
-        size_hint_y: 0.05
+        size_hint_x: 1
+        size_hint_y: None
+        size_y:50
 
 
