@@ -36,24 +36,35 @@
 
 
 <Project_Search>:
+    Image:
+        size_hint_x:0.4
+        source:"search.png"
+        allow_stretch: False
     TextInput:
         text:"Search"
 
+<Project_Display>:
 
+
+
+
+    
 
 <Project_Manager>:
     orientation:"vertical"
+    padding:6
 
     canvas.before:
         Color:
-            rgb: 1,0,0
+            rgb: 0.2,0.2,0.5
         Rectangle:
             pos:self.pos
             size:self.size
 
     Project_Search:
         size_hint_x: 1
-        pos: self.pos
+        size_hint_y: None
+        size:1, 30
     
     Label:
         text:"projects"
@@ -66,6 +77,7 @@
         id:header
         size_hint_y:None
         size_hint_x:1
+        size:50,50
 
     BoxLayout:
                 
@@ -78,9 +90,9 @@
 
         Project_Manager:
             pos:self.pos
-            size:10,10
+            size:180,1
             size_hint_x:None
-            size_hint_y:None
+            size_hint_y:1
 
 
         Label:
@@ -90,6 +102,6 @@
         id: main_footer
         size_hint_x: 1
         size_hint_y: None
-        size_y:50
+        size:30,30
 
 

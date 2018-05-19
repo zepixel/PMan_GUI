@@ -10,6 +10,7 @@ from kivy.uix.widget import Widget
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.textinput import TextInput
+from kivy.uix.stacklayout import StackLayout
 
 class Main_body(BoxLayout):
     # Corps principal global de l'appli.
@@ -29,11 +30,12 @@ class Project_Manager(BoxLayout):
     # Barre laterale de gestion et recherche des projets. Contient Project_Search. et Project_Display.
     pass
 
-class Project_Search(Widget):
+class Project_Search(BoxLayout):
     # Zone de recherche des projets.
     pass
 
-class Project_Display(BoxLayout):
+
+class Project_Display(StackLayout):
     # Lieu d'affichage des objets projets
     pass
 
