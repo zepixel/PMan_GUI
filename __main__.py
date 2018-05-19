@@ -12,6 +12,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.stacklayout import StackLayout
 
+
 class Main_body(BoxLayout):
     # Corps principal global de l'appli.
     pass
@@ -36,7 +37,7 @@ class Project_Search(BoxLayout):
 
 
 class Project_Display(StackLayout):
-    # Lieu d'affichage des objets projets
+    # Lieu d'affichage des objets projets.
     pass
 
 

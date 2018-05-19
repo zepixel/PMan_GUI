@@ -35,6 +35,9 @@
         on_release: app.stop()
 
 
+
+# - PROJECT MANAGEMENT RELATED UI - #
+
 <Project_Search>:
     Image:
         size_hint_x:0.4
@@ -44,11 +47,11 @@
         text:"Search"
 
 <Project_Display>:
-
-
-
-
-    
+    padding:10
+    Button:
+        text:"test"
+    Button:
+        text:"test"
 
 <Project_Manager>:
     orientation:"vertical"
@@ -66,9 +69,13 @@
         size_hint_y: None
         size:1, 30
     
-    Label:
-        text:"projects"
+    Project_Display:
+        size_hint_x:1
+        size_hint_y:None
 
+
+
+# - MAIN UI DESCRIPTION - #
 
 <Main_body>:
     orientation: "vertical"
@@ -88,6 +95,7 @@
                 pos: self.pos
                 size: self.size
 
+        
         Project_Manager:
             pos:self.pos
             size:180,1
