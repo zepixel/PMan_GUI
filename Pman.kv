@@ -58,6 +58,8 @@
 
 <Project_Display>:
     padding:8
+    size_hint_x:None
+    size_hint_y:None
     Button:
         text:"test"
     Button:
@@ -78,9 +80,10 @@
         size_hint_y: None
         size:1, 33
     
-    Project_Display:
-        padding:8
-        size_hint_x:1
+    ScrollView:
+        Project_Display:
+            padding:8
+            size_hint_x:1
 
 
 # - Screen Description - #

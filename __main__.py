@@ -11,7 +11,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.stacklayout import StackLayout
-
+from kivy.uix.scrollview import ScrollView
 
 class Main_body(BoxLayout):
     # Corps principal global de l'appli.
@@ -37,6 +37,7 @@ class Project_Search(BoxLayout):
 
 
 class Project_Display(StackLayout):
+    
     # Lieu d'affichage des objets projets.
     pass
 
