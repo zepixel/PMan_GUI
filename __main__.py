@@ -23,7 +23,7 @@ class Main_header(BoxLayout):
     pass
 
 
-class Main_ScreenManager(ScreenManager):
+class Main_SM(ScreenManager):
     # ScreenManager pour switcher de eval a render.
     pass
 
