@@ -12,6 +12,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.textinput import TextInput
 from kivy.uix.stacklayout import StackLayout
 from kivy.uix.scrollview import ScrollView
+from kivy.uix.label import Label
 
 class Main_body(BoxLayout):
     # Corps principal global de l'appli.
@@ -37,7 +38,6 @@ class Project_Search(BoxLayout):
 
 
 class Project_Display(StackLayout):
-    
     # Lieu d'affichage des objets projets.
     pass
 
@@ -56,9 +56,10 @@ class Main_Footer(BoxLayout):
 class PmanApp(App):
     # main app.
     Window.borderless = True
+
     def build(self):
-        body = Main_body()
-        return body
+        self.body = Main_body()
+        return self.body
 
 
 if __name__== '__main__':
