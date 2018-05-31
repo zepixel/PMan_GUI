@@ -13,6 +13,7 @@ from kivy.uix.textinput import TextInput
 from kivy.uix.stacklayout import StackLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.label import Label
+from kivy.uix.button import Button
 
 class Main_body(BoxLayout):
     # Corps principal global de l'appli.
@@ -39,7 +40,20 @@ class Project_Search(BoxLayout):
 
 class Project_Display(StackLayout):
     # Lieu d'affichage des objets projets.
-    pass
+    
+    def __init__(self,**kwargs):
+        super(Project_Display,self).__init__(**kwargs)
+        self.size_hint_y=(None)
+        self.bind(minimum_height=self.setter('height'))
+        for i in range(100):
+            btn = Button(text=str(i), size_hint_y=None, height=80)
+            btn.id= str(i)
+            btn.text= btn.id
+            self.add_widget(btn)
+
+
+    def Btn_change_text(self):
+        self.ids.str(1).text="lol"
 
 
 class Eval_Screen(Screen):

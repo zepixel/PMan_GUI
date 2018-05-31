@@ -1,5 +1,5 @@
 #:kivy 1.8.0
-
+#: import Window kivy.core.window.Window
 
 
 <Main_Footer>:
@@ -56,22 +56,6 @@
         padding:8
         text:"Search"
 
-<Project_Display>:
-    padding:8
-    size_hint_x:None
-    size_hint_y:None
-    Button:
-        text:"test"
-    Button:
-        text:"test"
-    Button:
-        text:"test"
-    Button:
-        text:"test"
-    Button:
-        text:"test"
-    Button:
-        text:"test"
 
 <Project_Manager>:
     orientation:"vertical"
@@ -89,10 +73,9 @@
         size:1, 33
     
     ScrollView:
-        do_scroll_y:True
+
         Project_Display:
             padding:8
-            size_hint_x:1
 
 
 # - Screen Description - #
@@ -109,7 +92,7 @@
             Image:
                 canvas.before:
                     Color:
-                        rgb: 0.2,0.2,0.5
+                        rgb: 0.5,0.5,0.3
                     Rectangle:
                         pos:self.pos
                         size:self.size
