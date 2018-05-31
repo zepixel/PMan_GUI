@@ -52,9 +52,6 @@ class Project_Display(StackLayout):
             self.add_widget(btn)
 
 
-    def Btn_change_text(self):
-        self.ids.str(1).text="lol"
-
 
 class Eval_Screen(Screen):
     # Ecran d'évaluation des projets.
