@@ -89,12 +89,14 @@
         size:1, 33
     
     ScrollView:
+        do_scroll_y:True
         Project_Display:
             padding:8
             size_hint_x:1
 
 
 # - Screen Description - #
+
 
 <Eval_Screen>:
     BoxLayout:
@@ -103,12 +105,25 @@
         # Ligne 1
         BoxLayout:
             orientation:"horizontal"
-            Label:
-                text:"image projet"
+            
+            Image:
+                canvas.before:
+                    Color:
+                        rgb: 0.2,0.2,0.5
+                    Rectangle:
+                        pos:self.pos
+                        size:self.size
+                                
+                size_hint_x:None
+                size_hint_y:1
+                height:20
+                source:"Fast_text.png"
+
             Label:
                 text:"Nom/ Eleves/ Chemin d'acces"
 
             Button:
+                size_hint_x:0.2
                 text:"Edit"
         
         # Ligne 2
