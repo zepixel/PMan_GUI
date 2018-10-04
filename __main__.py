@@ -40,7 +40,7 @@ class Project_Search(BoxLayout):
 
 class Project_Display(StackLayout):
     # Lieu d'affichage des objets projets.
-    
+
     def __init__(self,**kwargs):
         super(Project_Display,self).__init__(**kwargs)
         self.size_hint_y=(None)
@@ -49,7 +49,13 @@ class Project_Display(StackLayout):
             btn = Button(text=str(i), size_hint_y=None, height=80)
             btn.id= str(i)
             btn.text= btn.id
+            btn.on_release=self.btnlbl(btn,"100")
             self.add_widget(btn)
+
+
+    def btnlbl(self,Btn, labl):
+        Btn.text = labl
+        return
 
 
 
@@ -70,6 +76,8 @@ class PmanApp(App):
 
     def build(self):
         self.body = Main_body()
+
+
         return self.body
 
 
