@@ -1,0 +1,46 @@
+[
+  {
+    "NOM": "HELLO.txt",
+    "ETUDIANTS": [
+      "MARTIN"
+    ],
+    "SECTION": "ESRA1",
+    "FICHIER": "ESRA1_MARTIN_HELLO.txt",
+    "NOTE": "15",
+    "COMMENTAIRE": "Peut mieux faire",
+    "CHECKSUM": 1
+  },
+  {
+    "NOM": "PROJET1.txt",
+    "ETUDIANTS": [
+      "BOB"
+    ],
+    "SECTION": "ESRA2",
+    "FICHIER": "ESRA2_BOB_PROJET1.txt",
+    "NOTE": "8",
+    "COMMENTAIRE": "pourri",
+    "CHECKSUM": 1
+  },
+  {
+    "NOM": "PROJET2.txt",
+    "ETUDIANTS": [
+      "JON"
+    ],
+    "SECTION": "ESRA3",
+    "FICHIER": "ESRA3_JON_PROJET2.txt",
+    "NOTE": "15",
+    "COMMENTAIRE": "trop bien",
+    "CHECKSUM": 1
+  },
+  {
+    "NOM": "LOL.txt",
+    "ETUDIANTS": [
+      "SIMON"
+    ],
+    "SECTION": "ESRA4",
+    "FICHIER": "ESRA4_SIMON_LOL.txt",
+    "NOTE": "1",
+    "COMMENTAIRE": "javais foi en toi",
+    "CHECKSUM": 1
+  }
+]

@@ -1,0 +1,24 @@
+
+
+HELLO.txt réalisé par MARTIN, en section ESRA1:
+    NOTE: 15
+    Commentaire: Peut mieux faire
+
+
+
+PROJET1.txt réalisé par BOB, en section ESRA2:
+    NOTE: 8
+    Commentaire: pourri
+
+
+
+PROJET2.txt réalisé par JON, en section ESRA3:
+    NOTE: 15
+    Commentaire: trop bien
+
+
+
+LOL.txt réalisé par SIMON, en section ESRA4:
+    NOTE: 1
+    Commentaire: javais foi en toi
+
