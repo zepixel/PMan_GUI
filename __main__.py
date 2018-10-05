@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+import copy 
 from kivy.app import App
 from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty
 from kivy.vector import Vector
@@ -42,15 +42,27 @@ class Project_Display(StackLayout):
     # Lieu d'affichage des objets projets.
 
     def __init__(self,**kwargs):
+
+        # Project Button List
+        self.ProjectBtnList = []
+
         super(Project_Display,self).__init__(**kwargs)
         self.size_hint_y=(None)
         self.bind(minimum_height=self.setter('height'))
-        for i in range(100):
+
+        
+        # Button List constructor
+        
+        for i in range(3):
             btn = Button(text=str(i), size_hint_y=None, height=80)
             btn.id= str(i)
-            btn.text= btn.id
-            btn.on_release=self.btnlbl(btn,"100")
-            self.add_widget(btn)
+            btn.text= "lol"
+            btn.bind(on_press =lambda x:self.btnlbl(x,x.id))
+            self.ProjectBtnList.append(btn)
+
+
+        for i,b in  enumerate(self.ProjectBtnList):
+            self.add_widget(self.ProjectBtnList[i])
 
 
     def btnlbl(self,Btn, labl):
