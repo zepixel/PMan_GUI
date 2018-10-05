@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
-import copy 
+
+# imports Project Manager Cli
+import os
+import xlsconverter
+from projectreader import clear, session, project_handler
+
+# imports Kivy
 from kivy.app import App
 from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty
 from kivy.vector import Vector
@@ -14,6 +20,7 @@ from kivy.uix.stacklayout import StackLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.label import Label
 from kivy.uix.button import Button
+
 
 class Main_body(BoxLayout):
     # Corps principal global de l'appli.
@@ -86,10 +93,18 @@ class PmanApp(App):
     # main app.
     Window.borderless = True
 
+    
     def build(self):
+        
+        # Project Handler
+        print("lol")
+        self.session_0 = session("session 0","./session/session.json" )
+        #self.session_0.selection()
+        #self.session_0.run()
+
+
+        # UI 
         self.body = Main_body()
-
-
         return self.body
 
 
