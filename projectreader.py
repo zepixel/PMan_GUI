@@ -27,135 +27,27 @@ class session:
         self.project_list = []
         self.handler_0 = project_handler()
     
-    
-    def selection(self):
 
+    def is_existing(self):
+              
         # Si fichier de sauvegarde de session existant : verifier son contenu.
         if os.path.isfile(self.session_file):
- 
-            # Si fichier de sauvegarde de session vide : création d'une nouvelle session.
+            # Si fichier de sauvegarde de session vide : FALSE
             if os.stat(self.session_file).st_size == 0:  
-                self.choix_session = 2
-            
-            # Detection d'une session précedente dans le fichier de sauvegarde de session.
+                return False
             else:
-                while True:
-                    try:
-                        self.choix_session = int(input('''\nATTENTION !
-Une session précédente à été détectée, voulez vous reprendre cette session ?
-
-    1. Reprendre la session.
-    2. Effacer la session et en démarrer une nouvelle.
-
->> '''))
-                        break
-                    except ValueError:
-                        input("\nEntrez un numéro de menu valide.")
-                        clear()
-
-            return self.choix_session
-        
-        # Fichier de sauvegarde inexistant : création d'une nouvelle session.
+                return True
         else:
-            if not os.path.exists("./session"):
-                os.makedirs("./session")
-            self.choix_session = 2
+            return False
 
 
 
-    def run(self):
-    
-        while self.choix_session != 0:
-	
-            # NOUVELLE SESSION
-            if self.choix_session == 2: 
-
-                clear()
-                input("Le dossier projet actuel est : /projet\n\nAppuyez sur une touche pour charger les projets.")
-                self.handler_0.load_projects(self)
-                input("\nAppuyez sur une touche pour commencer l'evaluation.")
-                clear()
-                #self.print_project_list(self.project_list)
-                self.handler_0.eval_all_projects(self)
-                self.choix_session = 3
-		
-            # REPRISE SESSION
-            elif self.choix_session == 1: 
-                self.load()
-                self.choix_session = 3
-        
-            # MENU GENERAL DE SESSION
-            elif self.choix_session == 3: # Session de selection d'options après chargement   
-
-                while True:
-                    clear()
-                    try:
-                        choix_projets = int(input('''Que voulez vous faire ?\n
-    1. Reprendre l'évaluations des projets.
-    2. Enregistrer les évaluations sous la forme d'un fichier texte.
-    3. Enregistrer les evaluations dans le classeur de section.
-    4. Rechercher une evaluation.
-    5. Quitter.
-
->> '''))
-                        break
-                    except ValueError:
-                        input("\nEntrez un numéro de menu valide.")
-
-
-                # MENU REPRISE EVALUATION     
-                if choix_projets == 1:
-                    self.handler_0.resume_eval(self)
-        
-                # MENU SORTIE TXT   
-                elif choix_projets == 2: 
-                    self.txt_file = "./sortie/Evaluations.txt"
-                    
-                    if not os.path.exists("./sortie"):
-                        os.makedirs("./sortie")        
-                    
-                    self.handler_0.print_txt_file(self.txt_file, self.project_list)
-
-                # MENU SORTIE CLASSEUR EXTERNE
-                elif choix_projets == 3: 
-                    self.xlsx_doc_0 = xlsx_doc("document")
-                    choix_xlsx = 0
-                    clear()
-                    print("Veuillez charger un classeur afin d'y stocker les évaluation.\n")
-                    self.xlsx_doc_0.load()
-
-                    while choix_xlsx != 3:
-                        clear()
-                        print("Que souhaitez vous faire ?\n\n1. Enregistrer les évaluation.\n2. Enregistrer le classeur sous la forme d'une page web.\n3. Retour")
-                        choix_xlsx = int(input("\n>> "))
-                        
-                        if choix_xlsx == 1:
-                            self.xlsx_doc_0.map(self.project_list)
-                            self.xlsx_doc_0.fill(self.project_list)
-                            self.xlsx_doc_0.write()
-
-                        if choix_xlsx == 2:
-                            self.web_0 = web_renderer("web",self.xlsx_doc_0)
-                            self.web_0.style_select()
-                            self.web_0.load_templates()
-                            self.web_0.render()
-
-                # MENU RECHERCHE PROJET
-                elif choix_projets == 4: 
-                    self.handler_0.find_project(self)
-        
-                # MENU QUITTER
-                elif choix_projets == 5:
-                    self.choix_session = 0 
+    def create(self):
             
-                # MENU AFFICHER DEBUG LIST
-                elif choix_projets == 6:
-                    input(self.project_list)
+        if not os.path.exists("./session"):
+            os.makedirs("./session")
 
-                else:
-                    input("\nEntrez un numéro de menu valide.")
-    
-    
+
     def save(self):
         with open(self.session_file,"w+") as fichier:
             json.dump(self.project_list, fichier,indent=2)		
@@ -169,6 +61,8 @@ Une session précédente à été détectée, voulez vous reprendre cette sessio
         return(self.project_list)
 
 
+
+   
 
 
 class project_handler:

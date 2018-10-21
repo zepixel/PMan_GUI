@@ -50,6 +50,7 @@ class Project_Display(StackLayout):
 
     def __init__(self,**kwargs):
 
+
         # Project Button List
         self.ProjectBtnList = []
 
@@ -60,7 +61,7 @@ class Project_Display(StackLayout):
         
         # Button List constructor
         
-        for i in range(3):
+        for p,i in enumerate(PmanApp.session_0.project_list):
             btn = Button(text=str(i), size_hint_y=None, height=80)
             btn.id= str(i)
             btn.text= "lol"
@@ -70,6 +71,7 @@ class Project_Display(StackLayout):
 
         for i,b in  enumerate(self.ProjectBtnList):
             self.add_widget(self.ProjectBtnList[i])
+
 
 
     def btnlbl(self,Btn, labl):
@@ -93,14 +95,11 @@ class PmanApp(App):
     # main app.
     Window.borderless = True
 
-    
     def build(self):
         
         # Project Handler
-        print("lol")
         self.session_0 = session("session 0","./session/session.json" )
-        #self.session_0.selection()
-        #self.session_0.run()
+        self.session_0.handler_0.load_projects(self.session_0)
 
 
         # UI 
