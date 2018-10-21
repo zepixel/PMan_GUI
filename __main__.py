@@ -20,6 +20,7 @@ from kivy.uix.stacklayout import StackLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.label import Label
 from kivy.uix.button import Button
+from kivy.event import EventDispatcher
 
 
 class Main_body(BoxLayout):
@@ -82,6 +83,12 @@ class Project_Display(StackLayout):
 class Eval_Screen(Screen):
     # Ecran d'évaluation des projets.
     pass
+
+
+#class Project_Eval(EventDispatcher):
+
+#    def __init__(self,session)
+
 
 
 
