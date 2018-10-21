@@ -29,23 +29,22 @@ class session:
     
 
     def is_existing(self):
-              
-        # Si fichier de sauvegarde de session existant : verifier son contenu.
+    
+    # Si fichier de sauvegarde de session existant : verifier son contenu.
         if os.path.isfile(self.session_file):
-            # Si fichier de sauvegarde de session vide : FALSE
+    # Si fichier de sauvegarde de session vide :
             if os.stat(self.session_file).st_size == 0:  
                 return False
             else:
                 return True
-        else:
+        else :
             return False
 
 
-
-    def create(self):
-            
+    def create_folder(self):
         if not os.path.exists("./session"):
             os.makedirs("./session")
+        self.choix_session = 2        
 
 
     def save(self):
@@ -60,9 +59,6 @@ class session:
         input("\nSession chargée. Appuyez sur une touche pour continuer.\n")
         return(self.project_list)
 
-
-
-   
 
 
 class project_handler:

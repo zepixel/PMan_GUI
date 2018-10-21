@@ -46,27 +46,26 @@ class Project_Search(BoxLayout):
 
 
 class Project_Display(StackLayout):
-    # Lieu d'affichage des objets projets.
+# Lieu d'affichage des objets projets.
 
     def __init__(self,**kwargs):
 
-
-        # Project Button List
+    # Init
         self.ProjectBtnList = []
-
+        self.appli= App.get_running_app()
+        self.project_list = self.appli.session_0.project_list
+        
         super(Project_Display,self).__init__(**kwargs)
         self.size_hint_y=(None)
         self.bind(minimum_height=self.setter('height'))
 
         
-        # Button List constructor
-        
-        for p,i in enumerate(PmanApp.session_0.project_list):
-            btn = Button(text=str(i), size_hint_y=None, height=80)
-            btn.id= str(i)
-            btn.text= "lol"
-            btn.bind(on_press =lambda x:self.btnlbl(x,x.id))
-            self.ProjectBtnList.append(btn)
+    # Button List constructor
+        for i,project in enumerate(self.project_list):
+            project_btn = Button(text=project["NOM"], size_hint_y=None, height=80)
+            project_btn.id= str(i)
+            project_btn.bind(on_press =lambda x:self.btnlbl(x,x.id))
+            self.ProjectBtnList.append(project_btn)
 
 
         for i,b in  enumerate(self.ProjectBtnList):
@@ -95,12 +94,12 @@ class PmanApp(App):
     # main app.
     Window.borderless = True
 
+    
     def build(self):
         
         # Project Handler
         self.session_0 = session("session 0","./session/session.json" )
         self.session_0.handler_0.load_projects(self.session_0)
-
 
         # UI 
         self.body = Main_body()
