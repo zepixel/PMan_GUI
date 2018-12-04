@@ -38,7 +38,7 @@
 
 
 
-# - PROJECT MANAGEMENT RELATED UI - #
+# - PROJECT MANAGEMENT RELATED UI (LEFT PANEL) - #
 
 <Project_Search>:
     
@@ -78,10 +78,19 @@
             padding:8
 
 
-# - Screen Description - #
 
 
-<Eval_Screen>:
+
+# - INPUT SCREEN (RIGHT PANEL) - #
+
+# widgets
+
+<Project_name_widget>:
+    id: project_name_widget
+    text:"Nom/ Eleves/ Chemin d'acces"
+
+
+<Edit_Screen>:
     BoxLayout:
         orientation:"vertical"
         
@@ -102,8 +111,8 @@
                 height:20
                 source:"Fast_text.png"
 
-            Label:
-                text:"Nom/ Eleves/ Chemin d'acces"
+            Project_name_widget:
+
 
             Button:
                 size_hint_x:0.2
@@ -138,7 +147,7 @@
 
 <Main_SM>:
 
-    Eval_Screen:
+    Edit_Screen:
         size_hint_x:1
         size_hint_y:1
 

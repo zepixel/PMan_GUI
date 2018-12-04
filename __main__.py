@@ -23,6 +23,8 @@ from kivy.uix.button import Button
 from kivy.event import EventDispatcher
 
 
+#  MAIN BODY  #
+
 class Main_body(BoxLayout):
     # Corps principal global de l'appli.
     pass
@@ -33,9 +35,16 @@ class Main_header(BoxLayout):
     pass
 
 
-class Main_SM(ScreenManager):
-    # ScreenManager pour switcher de eval a render.
+
+class Main_Footer(BoxLayout):
+    # Pied de page.
     pass
+
+
+
+
+
+# LEFT PANEL (project management) #
 
 class Project_Manager(BoxLayout):
     # Barre laterale de gestion et recherche des projets. Contient Project_Search. et Project_Display.
@@ -44,6 +53,7 @@ class Project_Manager(BoxLayout):
 class Project_Search(BoxLayout):
     # Zone de recherche des projets.
     pass
+
 
 
 class Project_Display(StackLayout):
@@ -80,22 +90,25 @@ class Project_Display(StackLayout):
 
 
 
-class Eval_Screen(Screen):
+
+
+# RIGHT PANEL (project editing) #
+
+class Main_SM(ScreenManager):
+    # ScreenManager pour switcher de Edit a Render.
+    pass
+
+class Edit_Screen(Screen):
     # Ecran d'évaluation des projets.
     pass
 
-
-#class Project_Eval(EventDispatcher):
-
-#    def __init__(self,session)
-
-
-
-
-class Main_Footer(BoxLayout):
-    # Pied de page.
+class Project_name_widget(Label):
     pass
 
+
+
+
+#  MAIN APP  #
 
 class PmanApp(App):
     # main app.
