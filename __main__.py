@@ -86,6 +86,13 @@ class Project_Display(StackLayout):
 
     def btnlbl(self,Btn, labl):
         Btn.text = labl
+        #print(self.project_list[int(labl)])
+
+        print(self.appli.root.ids.main_sm.ids)
+
+        self.appli.root.ids.main_sm.ids.Edit_screen.current_project = 2
+        print (self.appli.root.ids.main_sm.ids.Edit_screen.current_project)
+
         return
 
 
@@ -99,6 +106,11 @@ class Main_SM(ScreenManager):
     pass
 
 class Edit_Screen(Screen):
+
+    def __init__(self,**kwargs):
+       super(Edit_Screen,self).__init__(**kwargs)
+       self.current_project = 0 
+
     # Ecran d'évaluation des projets.
     pass
 
