@@ -62,10 +62,14 @@ class Project_Display(StackLayout):
     def __init__(self,**kwargs):
 
     # Init
+        # Liste des boutons de projet
         self.ProjectBtnList = []
+        # Recupération de l'appli principale
         self.appli= App.get_running_app()
+        # Stockage de la liste des projets de la session vers une liste locale
         self.project_list = self.appli.session_0.project_list
         
+        # Super init et construction
         super(Project_Display,self).__init__(**kwargs)
         self.size_hint_y=(None)
         self.bind(minimum_height=self.setter('height'))
@@ -75,7 +79,7 @@ class Project_Display(StackLayout):
         for i,project in enumerate(self.project_list):
             project_btn = Button(text=project["NOM"], size_hint_y=None, height=80)
             project_btn.id= str(i)
-            project_btn.bind(on_press =lambda x:self.btnlbl(x,x.id))
+            project_btn.bind(on_press =lambda x:self.attribute_current_project(x,x.id))
             self.ProjectBtnList.append(project_btn)
 
 
@@ -84,14 +88,14 @@ class Project_Display(StackLayout):
 
 
 
-    def btnlbl(self,Btn, labl):
-        Btn.text = labl
+    def attribute_current_project(self,Btn, Btn_id):
+        Btn.text = Btn_id
+
         #print(self.project_list[int(labl)])
+        #print(self.appli.root.ids.main_sm.ids)
 
-        print(self.appli.root.ids.main_sm.ids)
-
-        self.appli.root.ids.main_sm.ids.Edit_screen.current_project = 2
-        print (self.appli.root.ids.main_sm.ids.Edit_screen.current_project)
+        self.appli.current_project = self.project_list[int(Btn_id)]
+        print (self.appli.current_project)
 
         return
 
@@ -108,8 +112,13 @@ class Main_SM(ScreenManager):
 class Edit_Screen(Screen):
 
     def __init__(self,**kwargs):
-       super(Edit_Screen,self).__init__(**kwargs)
-       self.current_project = 0 
+        super(Edit_Screen,self).__init__(**kwargs)
+        Clock.schedule_interval(self.clock_callback, 0.5)
+
+    def clock_callback(self,dt):
+        print("clock")
+
+
 
     # Ecran d'évaluation des projets.
     pass
@@ -132,6 +141,7 @@ class PmanApp(App):
         # Project Handler
         self.session_0 = session("session 0","./session/session.json" )
         self.session_0.handler_0.load_projects(self.session_0)
+        self.current_project = 0
 
         # UI 
         self.body = Main_body()
