@@ -26,7 +26,9 @@ class session:
         self.session_file = output
         self.project_list = []
         self.handler_0 = project_handler()
-    
+        self.current_project = 0
+
+
 
     def is_existing(self):
     
@@ -87,6 +89,8 @@ class project_handler:
             session.project_list.append(self.projet.copy())
             
         print("Projets charges :", len(session.project_list))
+
+        
         return session.project_list
 
 

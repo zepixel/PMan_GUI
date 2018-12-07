@@ -94,8 +94,8 @@ class Project_Display(StackLayout):
         #print(self.project_list[int(labl)])
         #print(self.appli.root.ids.main_sm.ids)
 
-        self.appli.current_project = self.project_list[int(Btn_id)]
-        print (self.appli.current_project)
+        self.appli.session_0.current_project = self.project_list[int(Btn_id)]
+        print (self.appli.session_0.current_project)
 
         return
 
@@ -109,6 +109,8 @@ class Main_SM(ScreenManager):
     # ScreenManager pour switcher de Edit a Render.
     pass
 
+
+
 class Edit_Screen(Screen):
     # Ecran d'évaluation des projets.
 
@@ -117,17 +119,19 @@ class Edit_Screen(Screen):
         self.appli= App.get_running_app()
         Clock.schedule_interval(self.check_current_project, 0.1)
 
+        
+
     def check_current_project(self,dt):
-        print("clock")
-        self.ids.Project_name_widget.text = self.appli.current_project["NOM"]
+        #print("clock")
+
+        self.ids.Project_name_label.text = self.appli.session_0.current_project["NOM"]
+        self.ids.Project_students_label.text = ", ".join(self.appli.session_0.current_project["ETUDIANTS"])
+        self.ids.Project_path_label.text = self.appli.session_0.current_project["FICHIER"]
 
 
-    pass
-
-class Project_name_widget(Label):
-    pass
-
-
+    def select_next_project(self):
+        self.appli.session_0.current_project = self.appli.session_0.project_list[2]
+        print("lol")
 
 
 #  MAIN APP  #
@@ -142,7 +146,7 @@ class PmanApp(App):
         # Project Handler
         self.session_0 = session("session 0","./session/session.json" )
         self.session_0.handler_0.load_projects(self.session_0)
-        self.current_project = self.session_0.project_list[0]
+        self.session_0.current_project= self.session_0.project_list[0]
 
         # UI 
         self.body = Main_body()
