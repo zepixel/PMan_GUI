@@ -63,6 +63,7 @@ class Project_Display(StackLayout):
 
         # Liste des boutons de projet
         self.ProjectBtnList = []
+        self.DisplayBtnList =[]
         # Recupération de l'appli principale
         self.appli= App.get_running_app()
         # Stockage de la liste des projets de la session vers une liste locale
@@ -73,31 +74,36 @@ class Project_Display(StackLayout):
         self.size_hint_y=(None)
         self.bind(minimum_height=self.setter('height'))
 
-        
-        # Button List constructor
-        for i,project in enumerate(self.project_list):
-            project_btn = Button(text=project["NOM"], size_hint_y=None, height=80)
-            project_btn.id= str(i)
-            project_btn.bind(on_press =lambda x:self.attribute_current_project(x,x.id))
-            self.ProjectBtnList.append(project_btn)
-
-
-        for i,b in enumerate(self.ProjectBtnList):
-            self.add_widget(self.ProjectBtnList[i])
-
+        Clock.schedule_once(self.button_list_constructor)
+        #Clock.schedule_interval(self.button_list_update,0.1)
 
 
     def attribute_current_project(self,Btn, Btn_id):
-        Btn.text = Btn_id
-
-        #print(self.project_list[int(labl)])
-        #print(self.appli.root.ids.main_sm.ids)
+        #Btn.text = Btn_id
 
         self.appli.session_0.current_project = self.project_list[int(Btn_id)]
         print (self.appli.session_0.current_project)
 
         return
 
+
+    def button_list_constructor(self,dt):
+
+        for i,project in enumerate(self.project_list):
+            project_btn = Button(text=project["NOM"], size_hint_y=None, height=80)
+            project_btn.id= str(i)
+            project_btn.bind(on_press =lambda x:self.attribute_current_project(x,x.id))
+            self.ProjectBtnList.append(project_btn)
+        
+        for i,b in enumerate(self.ProjectBtnList):
+            self.add_widget(self.ProjectBtnList[i])
+
+
+
+    def button_list_update(self,dt):
+
+        for i,b in enumerate(self.ProjectBtnList):
+            self.add_widget(self.ProjectBtnList[i])        
 
 
 
