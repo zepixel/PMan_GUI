@@ -61,7 +61,6 @@ class Project_Display(StackLayout):
 
     def __init__(self,**kwargs):
 
-    # Init
         # Liste des boutons de projet
         self.ProjectBtnList = []
         # Recupération de l'appli principale
@@ -75,7 +74,7 @@ class Project_Display(StackLayout):
         self.bind(minimum_height=self.setter('height'))
 
         
-    # Button List constructor
+        # Button List constructor
         for i,project in enumerate(self.project_list):
             project_btn = Button(text=project["NOM"], size_hint_y=None, height=80)
             project_btn.id= str(i)
@@ -83,7 +82,7 @@ class Project_Display(StackLayout):
             self.ProjectBtnList.append(project_btn)
 
 
-        for i,b in  enumerate(self.ProjectBtnList):
+        for i,b in enumerate(self.ProjectBtnList):
             self.add_widget(self.ProjectBtnList[i])
 
 
@@ -105,22 +104,21 @@ class Project_Display(StackLayout):
 
 # RIGHT PANEL (project editing) #
 
+# ScreenManager pour switcher de Edit a Render.
 class Main_SM(ScreenManager):
-    # ScreenManager pour switcher de Edit a Render.
+    
     pass
 
 
-
+# Ecran d'évaluation des projets.
 class Edit_Screen(Screen):
-    # Ecran d'évaluation des projets.
 
     def __init__(self,**kwargs):
         super(Edit_Screen,self).__init__(**kwargs)
         self.appli= App.get_running_app()
         Clock.schedule_interval(self.check_current_project, 0.1)
 
-        
-
+    # Clock Callback
     def check_current_project(self,dt):
         #print("clock")
 
@@ -129,9 +127,13 @@ class Edit_Screen(Screen):
         self.ids.Project_path_label.text = self.appli.session_0.current_project["FICHIER"]
 
 
+    def select_previous_project(self):
+        self.appli.session_0.select_previous_project()
+
+
     def select_next_project(self):
-        self.appli.session_0.current_project = self.appli.session_0.project_list[2]
-        print("lol")
+        self.appli.session_0.select_next_project()
+
 
 
 #  MAIN APP  #

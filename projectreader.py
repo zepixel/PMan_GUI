@@ -19,6 +19,7 @@ class bcolors:
     UNDERLINE = '\033[4m'
 
 
+# Session : saving , loading, resuming, editing projects
 class session:
     
     def __init__(self, name, output):
@@ -62,16 +63,34 @@ class session:
         return(self.project_list)
 
 
+    def select_next_project(self):
 
+        if self.current_project["INDEX"] != (len(self.project_list) - 1):
+            
+            self.current_project = self.project_list[self.current_project["INDEX"]+1]
+            print("OK")
+
+
+    def select_previous_project(self):
+
+        if self.current_project["INDEX"] != 0:
+            
+            self.current_project = self.project_list[self.current_project["INDEX"]-1]
+            print("OK")
+
+
+# PROJECT HANDLER : Put project files into handlable structures.
 class project_handler:
+
 
     def __init__(self):
         #self.dir=input("Entrez le chemin d'accès du dossier de projets:\n> ")
         self.dir = "./projets"
-        self.projet = {"NOM" : "", "ETUDIANTS": [] , "SECTION" : "","FICHIER" : "", "NOTE": "Aucune note", "COMMENTAIRE" : "Aucun commentaire", "CHECKSUM": 0}
+        self.projet = {"NOM" : "", "ETUDIANTS": [] , "SECTION" : "","FICHIER" : "", "NOTE": "Aucune note", "COMMENTAIRE" : "Aucun commentaire", "CHECKSUM": 0, "INDEX": 0}
 
 
-    def load_projects(self,session): # Chargement des fichiers projets et stockage dans les structures de donnees.
+    # Chargement des fichiers projets et stockage dans les structures de donnees.
+    def load_projects(self,session):
         
         session.project_list = []
         liste_etudiant_projet =[]
@@ -86,6 +105,7 @@ class project_handler:
             self.projet["ETUDIANTS"] = liste_etudiant_projet
             self.projet["SECTION"] = fichier.split("_")[0]
             self.projet["FICHIER"] = fichier
+            self.projet["INDEX"]= index
             session.project_list.append(self.projet.copy())
             
         print("Projets charges :", len(session.project_list))
@@ -93,17 +113,17 @@ class project_handler:
         
         return session.project_list
 
-
+    # Affichage de la structure globale.
     def print_project_list(self,liste_projets):   
         for projet in liste_projets:
             self.print_project(projet)
 
-            
+    # Affichage d'un seul projet.
     def print_project(self,projet):   
             print(projet["NOM"], "réalisé par", ", ".join(projet["ETUDIANTS"]), "en section", projet["SECTION"], "\n" , "NOTE: ", projet["NOTE"],"\nCommentaire: ", projet["COMMENTAIRE"])
             input("")
 
-        
+    
     def eval_project(self,projet):
         
         etudiant_eval = "\nEvaluer le projet de: "
