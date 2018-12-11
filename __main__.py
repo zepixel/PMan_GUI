@@ -20,6 +20,7 @@ from kivy.uix.stacklayout import StackLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.uix.label import Label
 from kivy.uix.button import Button
+from kivy.uix.togglebutton import ToggleButton
 from kivy.event import EventDispatcher
 
 
@@ -75,7 +76,7 @@ class Project_Display(StackLayout):
         self.bind(minimum_height=self.setter('height'))
 
         Clock.schedule_once(self.button_list_constructor)
-        #Clock.schedule_interval(self.button_list_update,0.1)
+        Clock.schedule_interval(self.button_list_update,0.01)
 
 
     def attribute_current_project(self,Btn, Btn_id):
@@ -90,7 +91,7 @@ class Project_Display(StackLayout):
     def button_list_constructor(self,dt):
 
         for i,project in enumerate(self.project_list):
-            project_btn = Button(text=project["NOM"], size_hint_y=None, height=80)
+            project_btn = ToggleButton(text=project["NOM"], size_hint_y=None, height=80)
             project_btn.id= str(i)
             project_btn.bind(on_press =lambda x:self.attribute_current_project(x,x.id))
             self.ProjectBtnList.append(project_btn)
@@ -105,8 +106,18 @@ class Project_Display(StackLayout):
 
     def button_list_update(self,dt):
 
-        self.hide_widget(self.ids["2"],True)
-        self.hide_widget(self.ids["2"],False)
+        #self.hide_widget(self.ids["2"],True)
+        #self.hide_widget(self.ids["2"],False)
+
+
+        # Current project highlight button
+        for id in self.ids:
+            if id == str(self.appli.session_0.current_project["INDEX"]):
+                self.ids[id].state= "down"
+            else:
+                self.ids[id].state= "normal"
+
+
 
 
     # from Matteljay / stackoverflow
