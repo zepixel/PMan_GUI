@@ -79,10 +79,10 @@ class Project_Display(StackLayout):
 
 
     def attribute_current_project(self,Btn, Btn_id):
-        #Btn.text = Btn_id
 
         self.appli.session_0.current_project = self.project_list[int(Btn_id)]
         print (self.appli.session_0.current_project)
+
 
         return
 
@@ -99,11 +99,27 @@ class Project_Display(StackLayout):
             self.add_widget(self.ProjectBtnList[i])
 
 
+        # Dynamic class IDs dict completion
+        self.ids = {child.id:child for child in self.children}
+
 
     def button_list_update(self,dt):
 
-        for i,b in enumerate(self.ProjectBtnList):
-            self.add_widget(self.ProjectBtnList[i])        
+        self.hide_widget(self.ids["2"],True)
+        self.hide_widget(self.ids["2"],False)
+
+
+    # from Matteljay / stackoverflow
+    def hide_widget(self,wid, dohide=True):
+        if hasattr(wid, 'saved_attrs'):
+            if not dohide:
+                wid.height, wid.size_hint_y, wid.opacity, wid.disabled = wid.saved_attrs
+                del wid.saved_attrs
+        elif dohide:
+            wid.saved_attrs = wid.height, wid.size_hint_y, wid.opacity, wid.disabled
+            wid.height, wid.size_hint_y, wid.opacity, wid.disabled = 0, None, 0, True
+
+
 
 
 
