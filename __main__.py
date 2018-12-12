@@ -57,17 +57,16 @@ class Project_Search(BoxLayout):
 
 
 
+# Lieu d'affichage des boutons de selection de projets.
 class Project_Display(StackLayout):
-# Lieu d'affichage des objets projets.
 
     def __init__(self,**kwargs):
 
-        # Liste des boutons de projet
-        self.ProjectBtnList = []
-        self.DisplayBtnList =[]
+        self.ProjectBtnList = [] # Liste des boutons de projet
+        self.VisibleBtnList =[] # Liste des boutons visibles
+
         # Recupération de l'appli principale
         self.appli= App.get_running_app()
-        # Stockage de la liste des projets de la session vers une liste locale
         self.project_list = self.appli.session_0.project_list
         
         # Super init et construction
@@ -75,16 +74,14 @@ class Project_Display(StackLayout):
         self.size_hint_y=(None)
         self.bind(minimum_height=self.setter('height'))
 
+        # Horloge
         Clock.schedule_once(self.button_list_constructor)
         Clock.schedule_interval(self.button_list_update,0.01)
 
 
     def attribute_current_project(self,Btn, Btn_id):
-
         self.appli.session_0.current_project = self.project_list[int(Btn_id)]
         print (self.appli.session_0.current_project)
-
-
         return
 
 
@@ -99,7 +96,6 @@ class Project_Display(StackLayout):
         for i,b in enumerate(self.ProjectBtnList):
             self.add_widget(self.ProjectBtnList[i])
 
-
         # Dynamic class IDs dict completion
         self.ids = {child.id:child for child in self.children}
 
@@ -109,13 +105,15 @@ class Project_Display(StackLayout):
         #self.hide_widget(self.ids["2"],True)
         #self.hide_widget(self.ids["2"],False)
 
-
         # Current project highlight button
         for id in self.ids:
             if id == str(self.appli.session_0.current_project["INDEX"]):
                 self.ids[id].state= "down"
             else:
                 self.ids[id].state= "normal"
+
+
+        # Display only visible button list
 
 
 
@@ -151,10 +149,12 @@ class Edit_Screen(Screen):
         self.appli= App.get_running_app()
         Clock.schedule_interval(self.check_current_project, 0.1)
 
+        self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
+        self._keyboard.bind(on_key_down=self._on_keyboard_down)
+
+
     # Clock Callback
     def check_current_project(self,dt):
-        #print("clock")
-
         self.ids.Project_name_label.text = self.appli.session_0.current_project["NOM"]
         self.ids.Project_students_label.text = ", ".join(self.appli.session_0.current_project["ETUDIANTS"])
         self.ids.Project_path_label.text = self.appli.session_0.current_project["FICHIER"]
@@ -166,6 +166,30 @@ class Edit_Screen(Screen):
 
     def select_next_project(self):
         self.appli.session_0.select_next_project()
+
+
+    # Keyboard init
+    def _keyboard_closed(self):
+        self._keyboard.unbind(on_key_down=self._on_keyboard_down)
+        self._keyboard = None
+
+    # Keyboard event
+    def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
+        if keycode[1] == 'left':
+            self.select_previous_project()
+
+        elif keycode[1] == 'right':
+            self.select_next_project()
+
+        elif keycode[1] == 'up':
+            self.select_previous_project()
+
+        elif keycode[1] == 'down':
+            self.select_next_project()
+
+        return True
+
+
 
 
 
