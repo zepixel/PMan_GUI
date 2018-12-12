@@ -52,8 +52,22 @@ class Project_Manager(BoxLayout):
     pass
 
 class Project_Search(BoxLayout):
-    # Zone de recherche des projets.
+    # Zone de recherche des projets : contient une icone + SearchBar.
     pass
+
+class SearchBar(TextInput):
+    # Barre de recherche
+    def on_text(self,instance, value):
+        print('The widget', instance, 'have:', value)
+
+
+
+# Custom ToggleButton Class for projects
+class ProjectButton(ToggleButton):
+    
+    def __init__(self,**kwargs):
+        super(ProjectButton,self).__init__(**kwargs)
+        self.isVisible = True
 
 
 
@@ -61,18 +75,20 @@ class Project_Search(BoxLayout):
 class Project_Display(StackLayout):
 
     def __init__(self,**kwargs):
-
-        self.ProjectBtnList = [] # Liste des boutons de projet
-        self.VisibleBtnList =[] # Liste des boutons visibles
-
-        # Recupération de l'appli principale
-        self.appli= App.get_running_app()
-        self.project_list = self.appli.session_0.project_list
-        
         # Super init et construction
         super(Project_Display,self).__init__(**kwargs)
         self.size_hint_y=(None)
         self.bind(minimum_height=self.setter('height'))
+
+        self.ProjectBtnList = [] # Liste des boutons de projet
+        self.VisibleBtnList =[] # Liste des boutons visibles
+
+        # Liste des projets résultats de la barre de recherche.
+        self.SearchResult = []
+
+        # Recupération de l'appli principale
+        self.appli= App.get_running_app()
+        self.project_list = self.appli.session_0.project_list
 
         # Horloge
         Clock.schedule_once(self.button_list_constructor)
@@ -88,7 +104,7 @@ class Project_Display(StackLayout):
     def button_list_constructor(self,dt):
 
         for i,project in enumerate(self.project_list):
-            project_btn = ToggleButton(text=project["NOM"], size_hint_y=None, height=80)
+            project_btn = ProjectButton(text=project["NOM"], size_hint_y=None, height=80)
             project_btn.id= str(i)
             project_btn.bind(on_press =lambda x:self.attribute_current_project(x,x.id))
             self.ProjectBtnList.append(project_btn)
@@ -100,10 +116,8 @@ class Project_Display(StackLayout):
         self.ids = {child.id:child for child in self.children}
 
 
+    # Clock Update
     def button_list_update(self,dt):
-
-        #self.hide_widget(self.ids["2"],True)
-        #self.hide_widget(self.ids["2"],False)
 
         # Current project highlight button
         for id in self.ids:
@@ -113,9 +127,13 @@ class Project_Display(StackLayout):
                 self.ids[id].state= "normal"
 
 
+
         # Display only visible button list
-
-
+        for id in self.ids:
+            if self.ids[id].isVisible == False:
+                self.hide_widget(self.ids[id],True)
+            else:
+                self.hide_widget(self.ids[id],False)
 
 
     # from Matteljay / stackoverflow
@@ -137,7 +155,6 @@ class Project_Display(StackLayout):
 
 # ScreenManager pour switcher de Edit a Render.
 class Main_SM(ScreenManager):
-    
     pass
 
 
