@@ -1,5 +1,6 @@
 import os
 import json
+import re
 from xlsconverter import xlsx_doc, web_renderer
 
 
@@ -387,3 +388,31 @@ class project_handler:
                 input("\nAucun projet trouvé.")
             else:
                 input("\nFin de la recherche")
+
+
+
+
+
+    def Search_Project(self, session, KeyWord):
+
+        self.SearchResult = []
+        keyword = KeyWord
+
+        for projet in session.project_list:
+
+            if re.match(keyword, projet["NOM"]) != None:
+                self.SearchResult.append(projet)
+                continue
+
+            #if re.match(keyword, [etudiants for etudiants in projet["ETUDIANTS"]]) == None:
+            #   continue
+
+            if re.match(keyword, projet["SECTION"]) != None:
+                self.SearchResult.append(projet)
+                continue
+                
+            
+            else:
+                continue
+
+        return self.SearchResult

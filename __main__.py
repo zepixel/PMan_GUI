@@ -47,18 +47,36 @@ class Main_Footer(BoxLayout):
 
 # LEFT PANEL (project management) #
 
+# Barre laterale de gestion et recherche des projets. Contient Project_Search. et Project_Display.
 class Project_Manager(BoxLayout):
-    # Barre laterale de gestion et recherche des projets. Contient Project_Search. et Project_Display.
     pass
-
+    
+# Zone de recherche des projets : contient une icone + SearchBar.
 class Project_Search(BoxLayout):
-    # Zone de recherche des projets : contient une icone + SearchBar.
     pass
 
+
+# Barre de recherche
 class SearchBar(TextInput):
-    # Barre de recherche
+
+    def __init__(self,**kwargs):
+        super(SearchBar,self).__init__(**kwargs)
+        self.appli= App.get_running_app()
+        self.SearchResult =[]      
+
     def on_text(self,instance, value):
-        print('The widget', instance, 'have:', value)
+        #print('The widget', instance, 'have:', value)
+        self.SearchResult = self.appli.session_0.handler_0.Search_Project(self.appli.session_0, value)
+        self.parent.parent.ids["ProjectDisplay"].VisibleBtnList = []
+        
+        clear()
+        for projet in self.SearchResult:
+            print("\n" , projet)
+            self.parent.parent.ids["ProjectDisplay"].VisibleBtnList.append(projet["INDEX"])
+        print("TERMINE")
+
+        print (self.parent.parent.ids["ProjectDisplay"].VisibleBtnList)
+
 
 
 
@@ -129,6 +147,15 @@ class Project_Display(StackLayout):
 
 
         # Display only visible button list
+        '''
+        for id in self.ids:
+            if self.ids[id].id in self.VisibleBtnList:
+                self.ids[id].isVisible = True
+
+            else:
+                self.ids[id].isVisible = False
+            '''
+
         for id in self.ids:
             if self.ids[id].isVisible == False:
                 self.hide_widget(self.ids[id],True)
