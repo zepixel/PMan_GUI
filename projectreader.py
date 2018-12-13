@@ -29,7 +29,8 @@ class session:
         self.project_list = []
         self.handler_0 = project_handler()
         self.current_project = 0
-
+        self.message = ""
+        self.SearchResult = []
 
 
     def is_existing(self):
@@ -80,15 +81,15 @@ class session:
             print("OK")
 
 
+
+
 # PROJECT HANDLER : Put project files into handlable structures.
 class project_handler:
-
 
     def __init__(self):
         #self.dir=input("Entrez le chemin d'accès du dossier de projets:\n> ")
         self.dir = "./projets"
         self.projet = {"NOM" : "", "ETUDIANTS": [] , "SECTION" : "","FICHIER" : "", "NOTE": "Aucune note", "COMMENTAIRE" : "Aucun commentaire", "CHECKSUM": 0, "INDEX": 0}
-
 
     # Chargement des fichiers projets et stockage dans les structures de donnees.
     def load_projects(self,session):
@@ -109,22 +110,22 @@ class project_handler:
             self.projet["INDEX"]= index
             session.project_list.append(self.projet.copy())
             
-        print("Projets charges :", len(session.project_list))
-
-        
+        session.message = "Projets chargés: "+ str(len(session.project_list))
         return session.project_list
+
 
     # Affichage de la structure globale.
     def print_project_list(self,liste_projets):   
         for projet in liste_projets:
             self.print_project(projet)
 
+
     # Affichage d'un seul projet.
     def print_project(self,projet):   
             print(projet["NOM"], "réalisé par", ", ".join(projet["ETUDIANTS"]), "en section", projet["SECTION"], "\n" , "NOTE: ", projet["NOTE"],"\nCommentaire: ", projet["COMMENTAIRE"])
             input("")
 
-    
+
     def eval_project(self,projet):
         
         etudiant_eval = "\nEvaluer le projet de: "
@@ -167,231 +168,6 @@ class project_handler:
         input("\nFichier Evaluations.txt enregistré dans le dossier Sorties.")
 
 
-    def find_project(self,session):
-        while True:
-            clear()
-            try:
-                choix = int(input('''Quelle recherche souhaitez vous effectuer ?
-        
-        1. Rechercher par nom.
-        2. Rechercher par section.
-        3. Rechercher par note.
-        4. Rechercher par commentaire.
-        5. Retour.
-        
-    >> '''))
-                break
-            except ValueError:
-                input("\nEntrez un numéro de menu valide.")
-
-
-
-        if choix == 1:
-            clear()
-            resultats =[]
-            recherche = input("Entrez le nom de l'etudiant que vous recherchez.\n\n>> ")
-                
-            for projet in session.project_list:
-                for etudiant in projet["ETUDIANTS"]:
-                    
-                    if etudiant != recherche:
-                        continue
-                    else:
-                        if projet in resultats:
-                            break
-                        else:
-                            resultats.append(projet)
-                    
-            if resultats:
-                print(len(resultats) , " projets trouvé(s) :\n")
-
-                for index, resultat in enumerate(resultats):
-                    
-                    print("    " + str(index+1) + ".", resultat["SECTION"] +":", end=" " )
-                    for nom in resultat["ETUDIANTS"]:
-                        if nom != recherche:
-                            print(nom, end=", ")
-                        else:
-                            print(bcolors.OKBLUE + nom + bcolors.ENDC, end=", ")
-
-                    print( "\n        NOTE: " + resultat["NOTE"] , "\n        COMMENTAIRE:", resultat["COMMENTAIRE"],"\n")
-                print("    0. Retour\n")
-
-                
-                while True:
-                    try:
-                        selection_index = int(input("Entrez votre selection >> "))
-                        break
-                    except ValueError:
-                        input("\nEntrez un numéro de menu valide.")    
-                print("")
-
-
-                if selection_index !=0:
-                    self.print_project(resultats[selection_index - 1])
-                    
-                    while True:
-                    
-                        try:
-                            choix_2 = int(input("\nQue souhaitez vous faire ?\n1. Réevaluer le projet ?\n2. Retour\n>> "))
-                            break
-                        except ValueError:
-                            input("\nEntrez un numéro de menu valide.")
-            
-                    if choix_2 == 1:
-                        self.eval_project(resultats[selection_index - 1])
-                        session.save()
-                
-                else:
-                    pass
-                
-            if resultats == []:                
-                input("\nAucun projet trouvé.")
-            else:
-                input("\nFin de la recherche")
-
-    
-    
-    
-        if choix == 2:
-            clear()
-            resultats = []
-            recherche = input("Entrez le nom de la section que vous recherchez.\n\n>> ")
-            
-            for projet in session.project_list:
-                if projet["SECTION"] != recherche:
-                    continue
-                else:
-                    if projet in resultats:
-                        break
-                    else:
-                        resultats.append(projet)  
-            if resultats:
-                print(len(resultats) , " projets trouvé(s) :\n")
-                for index, resultat in enumerate(resultats):
-                    print("    " + str(index+1) + ".", bcolors.OKBLUE + resultat["SECTION"] +bcolors.ENDC +":", ", ".join(resultat["ETUDIANTS"]), "\n        NOTE: " + resultat["NOTE"], "\n        COMMENTAIRE:", resultat["COMMENTAIRE"],"\n")
-
-                while True:
-                    try:
-                        selection_index = int(input(" Choisissez un projet >> ")) - 1
-                        break
-                    except ValueError:
-                        input("\nEntrez un numéro de menu valide.")
-
-                print("")
-                self.print_project(resultats[selection_index])
-                choix_2 = int(input("\nQue souhaitez vous faire ?\n1. Réevaluer le projet ?\n2. Retour\n>> "))
-        
-                if choix_2 == 1:
-                    self.eval_project(resultats[selection_index])
-                    session.save()
-
-
-                            
-            if resultats == []:                
-                input("\nAucun projet trouvé.")
-            else:
-                input("\nFin de la recherche")
-
-
-        if choix == 3:
-            clear()
-            resultats = []
-            recherche = input("Entrez la note que vous recherchez.\n\n>> ")
-            
-            for projet in session.project_list:
-                if projet["NOTE"] != recherche:
-                    continue
-                else:
-                    if projet in resultats:
-                        break
-                    else:
-                        resultats.append(projet)
-
-
-            if resultats:
-                print(len(resultats) , " projets trouvé(s) :\n")
-                for index, resultat in enumerate(resultats):
-                    print("    " + str(index+1) + ".", resultat["SECTION"] +":", ", ".join(resultat["ETUDIANTS"]), "\n        NOTE: " + bcolors.OKBLUE + resultat["NOTE"] + bcolors.ENDC, "\n        COMMENTAIRE:", resultat["COMMENTAIRE"],"\n")
-
-                while True:
-                    try:
-                        selection_index = int(input(" Choisissez un projet >> ")) - 1
-                        break
-                    except ValueError:
-                        input("\nEntrez un numéro de menu valide.")
-
-                print("")
-                self.print_project(resultats[selection_index])
-                choix_2 = int(input("\nQue souhaitez vous faire ?\n1. Réevaluer le projet ?\n2. Retour\n>> "))
-        
-                if choix_2 == 1:
-                    self.eval_project(resultats[selection_index])
-                    session.save()
-
-
-            if resultats == []:                
-                input("\nAucun projet trouvé.")
-            else:
-                input("\nFin de la recherche")
-
-        if choix == 4:
-            clear()
-            resultats = []
-            recherche = input("Entrez le commentaire que vous recherchez.\n\n>> ")
-            
-            for projet in session.project_list:
-                for word in projet["COMMENTAIRE"].split():
-                    if word != recherche:
-                        continue
-                    else:
-                        if projet in resultats:
-                            break
-                        else:
-                            resultats.append(projet)
-
-            if resultats:
-                print(len(resultats) , " projets trouvé(s) :\n")
-                for index, resultat in enumerate(resultats):
-                    print("    " + str(index+1) + ".", resultat["SECTION"] +":", ", ".join(resultat["ETUDIANTS"]), "\n        COMMENTAIRE:", end=" ")
-                    for word in resultat["COMMENTAIRE"].split():
-                        if word != recherche:
-                            print(word, end=" ")
-                        else:
-                            print(bcolors.OKBLUE + word + bcolors.ENDC, end=" ")
-
-                    print("\n")
-
-                while True:
-                    try:
-                        selection_index = int(input(" Choisissez un projet >> ")) - 1
-                        break
-                    except ValueError:
-                        input("\nEntrez un numéro de menu valide.")
-
-                print("")
-                while True:
-
-                    try:
-                        clear()
-                        self.print_project(resultats[selection_index])
-                        choix_2 = int(input("\nQue souhaitez vous faire ?\n1. Réevaluer le projet ?\n2. Retour\n>> "))
-                        if choix_2 == 1:
-                            self.eval_project(resultats[selection_index])
-                            session.save()
-
-                        break
-                    except ValueError:
-                        input("\nEntrez un numéro de menu valide.")
-            
-            if resultats == []:                
-                input("\nAucun projet trouvé.")
-            else:
-                input("\nFin de la recherche")
-
-
-
-
 
     def Search_Project(self, session, KeyWord):
 
@@ -415,4 +191,5 @@ class project_handler:
             else:
                 continue
 
+        session.SearchResult= self.SearchResult
         return self.SearchResult

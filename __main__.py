@@ -39,8 +39,13 @@ class Main_header(BoxLayout):
 
 class Main_Footer(BoxLayout):
     # Pied de page.
-    pass
-
+    def __init__(self,**kwargs):
+        super(Main_Footer,self).__init__(**kwargs)
+        Clock.schedule_interval(self.get_session_message,0.1)
+        self.appli = App.get_running_app()
+    
+    def get_session_message(self,dt):
+        self.ids["Footer_Label"].text = self.appli.session_0.message
 
 
 
@@ -110,13 +115,8 @@ class Project_Display(StackLayout):
 
         # Horloge
         Clock.schedule_once(self.button_list_constructor)
-        Clock.schedule_interval(self.button_list_update,0.01)
+        Clock.schedule_interval(self.update,0.01)
 
-
-    def attribute_current_project(self,Btn, Btn_id):
-        self.appli.session_0.current_project = self.project_list[int(Btn_id)]
-        print (self.appli.session_0.current_project)
-        return
 
 
     def button_list_constructor(self,dt):
@@ -134,10 +134,31 @@ class Project_Display(StackLayout):
         self.ids = {child.id:child for child in self.children}
 
 
-    # Clock Update
-    def button_list_update(self,dt):
 
-        # Current project highlight button
+    # Clock Update
+    def update(self,dt):
+        self.highlight_current_project_button()
+        self.set_button_visibility()
+        self.hide_buttons()
+    
+
+    def attribute_current_project(self,Btn, Btn_id):
+        self.appli.session_0.current_project = self.project_list[int(Btn_id)]
+        print (self.appli.session_0.current_project)
+        return
+
+
+    def set_button_visibility(self):
+        for id in self.ids:
+            if int(self.ids[id].id) in self.VisibleBtnList:
+                self.ids[id].isVisible = True
+            else:
+                self.ids[id].isVisible = False             
+
+
+
+    # Current project highlight button
+    def highlight_current_project_button(self):
         for id in self.ids:
             if id == str(self.appli.session_0.current_project["INDEX"]):
                 self.ids[id].state= "down"
@@ -145,17 +166,7 @@ class Project_Display(StackLayout):
                 self.ids[id].state= "normal"
 
 
-
-        # Display only visible button list
-        '''
-        for id in self.ids:
-            if self.ids[id].id in self.VisibleBtnList:
-                self.ids[id].isVisible = True
-
-            else:
-                self.ids[id].isVisible = False
-            '''
-
+    def hide_buttons(self):
         for id in self.ids:
             if self.ids[id].isVisible == False:
                 self.hide_widget(self.ids[id],True)
@@ -191,14 +202,19 @@ class Edit_Screen(Screen):
     def __init__(self,**kwargs):
         super(Edit_Screen,self).__init__(**kwargs)
         self.appli= App.get_running_app()
-        Clock.schedule_interval(self.check_current_project, 0.1)
+        Clock.schedule_interval(self.update, 0.1)
 
         self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
         self._keyboard.bind(on_key_down=self._on_keyboard_down)
 
 
     # Clock Callback
-    def check_current_project(self,dt):
+    def update(self,dt):
+        self.check_current_project()
+
+
+
+    def check_current_project(self):
         self.ids.Project_name_label.text = self.appli.session_0.current_project["NOM"]
         self.ids.Project_students_label.text = ", ".join(self.appli.session_0.current_project["ETUDIANTS"])
         self.ids.Project_path_label.text = self.appli.session_0.current_project["FICHIER"]
