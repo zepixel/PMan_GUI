@@ -81,6 +81,29 @@ class session:
             print("OK")
 
 
+    def select_previous_result_project(self):
+
+        if self.current_project == self.SearchResult[0]:
+            print("MEME PROJET")
+            print(int(self.current_project["INDEX"]))
+            
+        else:
+            self.current_project = self.SearchResult[self.SearchResult.index(self.current_project)-1]
+            print("OK")
+
+
+
+    def select_next_result_project(self):
+
+        if self.SearchResult.index(self.current_project) != len(self.SearchResult) - 1:
+            self.current_project = self.SearchResult[self.SearchResult.index(self.current_project)+1]
+            print("OK")
+            
+        else:
+            print("MEME PROJET")
+            print(int(self.current_project["INDEX"]))
+            
+
 
 
 # PROJECT HANDLER : Put project files into handlable structures.
@@ -192,4 +215,6 @@ class project_handler:
                 continue
 
         session.SearchResult= self.SearchResult
+        session.current_project = self.SearchResult[0]
+
         return self.SearchResult

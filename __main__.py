@@ -221,11 +221,11 @@ class Edit_Screen(Screen):
 
 
     def select_previous_project(self):
-        self.appli.session_0.select_previous_project()
+        self.appli.session_0.select_previous_result_project()
 
 
     def select_next_project(self):
-        self.appli.session_0.select_next_project()
+        self.appli.session_0.select_next_result_project()
 
 
     # Keyboard init
