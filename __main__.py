@@ -7,7 +7,7 @@ from projectreader import clear, session, project_handler
 
 # imports Kivy
 from kivy.app import App
-from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty
+from kivy.properties import NumericProperty, ReferenceListProperty, ObjectProperty, StringProperty
 from kivy.vector import Vector
 from kivy.clock import Clock
 from kivy.graphics import *
@@ -26,12 +26,14 @@ from kivy.config import Config
 from kivy.uix.behaviors import ToggleButtonBehavior
 
 
+
 #   Custom Wigets   #
 class HeaderTab(ToggleButtonBehavior,BoxLayout):
-    pass
+    TabText = StringProperty("Edit")
+
+
 
 #  MAIN BODY  #
-
 class Main_body(BoxLayout):
     # Corps principal global de l'appli.
     pass
@@ -39,6 +41,9 @@ class Main_body(BoxLayout):
 
 class Main_header(BoxLayout):
     # Barre de header: onglets, info etc.
+
+    def use(self):
+        print("LOL")
     pass
 
 
@@ -121,7 +126,7 @@ class Project_Display(StackLayout):
 
         # Horloge
         self.button_list_constructor()
-        Clock.schedule_interval(self.update,0.1)
+        Clock.schedule_interval(self.update,0.01)
 
 
 
