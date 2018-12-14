@@ -22,7 +22,13 @@ from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.togglebutton import ToggleButton
 from kivy.event import EventDispatcher
+from kivy.config import Config
+from kivy.uix.behaviors import ToggleButtonBehavior
 
+
+#   Custom Wigets   #
+class HeaderTab(ToggleButtonBehavior,BoxLayout):
+    pass
 
 #  MAIN BODY  #
 
@@ -114,12 +120,12 @@ class Project_Display(StackLayout):
         self.project_list = self.appli.session_0.project_list
 
         # Horloge
-        Clock.schedule_once(self.button_list_constructor)
-        Clock.schedule_interval(self.update,0.01)
+        self.button_list_constructor()
+        Clock.schedule_interval(self.update,0.1)
 
 
 
-    def button_list_constructor(self,dt):
+    def button_list_constructor(self):
 
         for i,project in enumerate(self.project_list):
             project_btn = ProjectButton(text=project["NOM"], size_hint_y=None, height=80)
@@ -258,6 +264,7 @@ class Edit_Screen(Screen):
 class PmanApp(App):
     # main app.
     Window.borderless = True
+    Config.set('graphics','resizable',1)
 
     
     def build(self):

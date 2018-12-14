@@ -1,6 +1,22 @@
 #:kivy 1.8.0
 #: import Window kivy.core.window.Window
 
+<HeaderTab>:
+  
+    BoxLayout:
+        orientation:"horizontal"
+        
+        canvas.before:
+            Color:
+                rgb: 0,0.5,0.5
+            Rectangle:
+                size: self.width,3
+                pos: self.pos
+        
+        Label:
+            id: TabText
+            text:"Edit"
+
 
 <Main_Footer>:
     orientation:"horizontal"
@@ -20,15 +36,18 @@
 
 <Main_header>:
     orientation:"horizontal"
+
     canvas:
+  
         Color:
             rgb: 0.128,0.128,0.128
         Rectangle:
             size: self.size
             pos: self.pos
             
-    Label:
-        text: "Acces Programme Principal"
+    
+    HeaderTab:
+        size: 150, self.width
 
     Button:
         id: Quit
@@ -52,6 +71,7 @@
     Image:
         size_hint_x:0.4
         source:"search.png"
+    
     SearchBar:
         padding:8
         text:""
@@ -219,7 +239,7 @@
         size:50,50
 
     BoxLayout:
-                
+        
         canvas:
             Color:
                 rgb: 0.2,0.2,0.2
@@ -238,7 +258,7 @@
 
         Main_SM:
             id: main_sm
-            size:self.size
+            size:10,10
             
     Main_Footer:
         id: main_footer
