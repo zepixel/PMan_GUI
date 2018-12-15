@@ -26,11 +26,9 @@ from kivy.config import Config
 from kivy.uix.behaviors import ToggleButtonBehavior
 
 
-
 #   Custom Wigets   #
 class HeaderTab(ToggleButtonBehavior,BoxLayout):
     TabText = StringProperty("Edit")
-
 
 
 #  MAIN BODY  #
@@ -268,10 +266,11 @@ class Edit_Screen(Screen):
 
 class PmanApp(App):
     # main app.
-    Window.borderless = True
-    Config.set('graphics','resizable',1)
 
-    
+    Window.borderless = True
+    Config.set('graphics', 'resizable', 'False')
+
+
     def build(self):
         
         # Project Handler
