@@ -8,19 +8,7 @@ def clear():
     os.system('cls' if os.name=='nt' else 'clear')
 
 
-
-class bcolors:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
-
-
-# Session : saving , loading, resuming, editing projects
+# Session : saving , loading, resuming, searching, editing projects
 class session:
     
     def __init__(self, name, output):
@@ -49,7 +37,7 @@ class session:
     def create_folder(self):
         if not os.path.exists("./session"):
             os.makedirs("./session")
-        self.choix_session = 2        
+        self.choix_session = 2
 
 
     def save(self):
@@ -105,6 +93,34 @@ class session:
             
 
 
+    def Search_Project(self, KeyWord):
+
+        self.SearchResult = []
+        keyword = KeyWord
+
+        for projet in self.project_list:
+
+            if re.match(keyword, projet["NOM"]) != None:
+                self.SearchResult.append(projet)
+                continue
+
+            #if re.match(keyword, [etudiants for etudiants in projet["ETUDIANTS"]]) == None:
+            #   continue
+
+            if re.match(keyword, projet["SECTION"]) != None:
+                self.SearchResult.append(projet)
+                continue
+                
+            
+            else:
+                continue
+
+        self.SearchResult= self.SearchResult
+        self.current_project = self.SearchResult[0]
+
+        return self.SearchResult
+
+
 
 # PROJECT HANDLER : Put project files into handlable structures.
 class project_handler:
@@ -112,6 +128,8 @@ class project_handler:
     def __init__(self):
         #self.dir=input("Entrez le chemin d'accès du dossier de projets:\n> ")
         self.dir = "./projets"
+
+        # ToDo : Dynamic nomenclature of filenames and projects structure in Session config pannel.
         self.projet = {"NOM" : "", "ETUDIANTS": [] , "SECTION" : "","FICHIER" : "", "NOTE": "Aucune note", "COMMENTAIRE" : "Aucun commentaire", "CHECKSUM": 0, "INDEX": 0}
 
     # Chargement des fichiers projets et stockage dans les structures de donnees.
@@ -189,32 +207,3 @@ class project_handler:
                 _txt_.write(buffer)
 
         input("\nFichier Evaluations.txt enregistré dans le dossier Sorties.")
-
-
-
-    def Search_Project(self, session, KeyWord):
-
-        self.SearchResult = []
-        keyword = KeyWord
-
-        for projet in session.project_list:
-
-            if re.match(keyword, projet["NOM"]) != None:
-                self.SearchResult.append(projet)
-                continue
-
-            #if re.match(keyword, [etudiants for etudiants in projet["ETUDIANTS"]]) == None:
-            #   continue
-
-            if re.match(keyword, projet["SECTION"]) != None:
-                self.SearchResult.append(projet)
-                continue
-                
-            
-            else:
-                continue
-
-        session.SearchResult= self.SearchResult
-        session.current_project = self.SearchResult[0]
-
-        return self.SearchResult

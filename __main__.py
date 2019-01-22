@@ -80,7 +80,7 @@ class SearchBar(TextInput):
 
     def on_text(self,instance, value):
         #print('The widget', instance, 'have:', value)
-        self.SearchResult = self.appli.session_0.handler_0.Search_Project(self.appli.session_0, value)
+        self.SearchResult = self.appli.session_0.Search_Project(value)
         self.parent.parent.ids["ProjectDisplay"].VisibleBtnList = []
         
         clear()
