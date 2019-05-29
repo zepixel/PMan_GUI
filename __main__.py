@@ -267,7 +267,7 @@ class Edit_Screen(Screen):
 class PmanApp(App):
     # main app.
 
-    Window.borderless = True
+    Window.borderless = False
     Config.set('graphics', 'resizable', 'False')
 
 
