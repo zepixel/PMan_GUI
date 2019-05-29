@@ -226,7 +226,7 @@ class Edit_Screen(Screen):
     def check_current_project(self):
         self.ids.Project_name_label.text = self.appli.session_0.current_project["NOM"]
         self.ids.Project_students_label.text = ", ".join(self.appli.session_0.current_project["ETUDIANTS"])
-        self.ids.Project_path_label.text = self.appli.session_0.current_project["FICHIER"]
+        self.ids.Project_path_label.text = self.appli.session_0.current_project["SECTION"]
 
 
     def select_previous_project(self):
