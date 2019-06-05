@@ -3,7 +3,7 @@
 # imports Project Manager Cli
 import os
 import xlsconverter
-from projectreader import clear, session, project_handler
+from projectreader import clear, session, project
 
 # imports Kivy
 from kivy.app import App
@@ -86,7 +86,7 @@ class SearchBar(TextInput):
         clear()
         for projet in self.SearchResult:
             print("\n" , projet)
-            self.parent.parent.ids["ProjectDisplay"].VisibleBtnList.append(projet["INDEX"])
+            self.parent.parent.ids["ProjectDisplay"].VisibleBtnList.append(projet.index)
         print("TERMINE")
 
         print (self.parent.parent.ids["ProjectDisplay"].VisibleBtnList)
@@ -131,7 +131,7 @@ class Project_Display(StackLayout):
     def button_list_constructor(self):
 
         for i,project in enumerate(self.project_list):
-            project_btn = ProjectButton(text=project["NOM"], size_hint_y=None, height=80)
+            project_btn = ProjectButton(text=project.name, size_hint_y=None, height=80)
             project_btn.id= str(i)
             project_btn.bind(on_press =lambda x:self.attribute_current_project(x,x.id))
             self.ProjectBtnList.append(project_btn)
@@ -169,7 +169,7 @@ class Project_Display(StackLayout):
     # Current project highlight button
     def highlight_current_project_button(self):
         for id in self.ids:
-            if id == str(self.appli.session_0.current_project["INDEX"]):
+            if id == str(self.appli.session_0.current_project.index):
                 self.ids[id].state= "down"
             else:
                 self.ids[id].state= "normal"
@@ -224,9 +224,9 @@ class Edit_Screen(Screen):
 
 
     def check_current_project(self):
-        self.ids.Project_name_label.text = self.appli.session_0.current_project["NOM"]
-        self.ids.Project_students_label.text = ", ".join(self.appli.session_0.current_project["ETUDIANTS"])
-        self.ids.Project_path_label.text = self.appli.session_0.current_project["SECTION"]
+        self.ids.Project_name_label.text = self.appli.session_0.current_project.name
+        self.ids.Project_students_label.text = ", ".join(self.appli.session_0.current_project.members)
+        self.ids.Project_path_label.text = self.appli.session_0.current_project.group
 
 
     def select_previous_project(self):
@@ -275,7 +275,7 @@ class PmanApp(App):
         
         # Project Handler
         self.session_0 = session("session 0","./session/session.json" )
-        self.session_0.handler_0.load_projects(self.session_0)
+        self.session_0.load_projects()
         self.session_0.current_project= self.session_0.project_list[0]
 
         # UI 
