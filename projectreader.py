@@ -16,7 +16,7 @@ class project:
         self.filepath = ""
         self.members = []
         self.group = ""
-        self.mark = "Aucune note"
+        self.mark = "Aucune"
         self.comm = "Aucun commentaire"
 
         self.tag= []

@@ -154,6 +154,18 @@ class Project_Display(StackLayout):
     def attribute_current_project(self,Btn, Btn_id):
         self.appli.session.current_project = self.project_list[int(Btn_id)]
         print (self.appli.session.current_project)
+        
+        #status = self.root.ids.StatusBoxLayout.ids.status  https://stackoverflow.com/questions/43450700/kivy-python-how-to-access-to-an-external-child-class-from-the-root-class-face
+
+
+        #self.ids.Edit_Screen.ids.Project_name_label.text = self.appli.session.current_project.name
+        #self.ids.Project_students_label.text = ", ".join(self.appli.session.current_project.members)
+        #self.ids.Project_path_label.text = self.appli.session.current_project.group
+        #self.ids.mark_input.text = self.appli.session.current_project.mark
+        #self.ids.comm_input.text = self.appli.session.current_project.comm
+
+
+
         return
 
 
@@ -211,7 +223,7 @@ class Edit_Screen(Screen):
     def __init__(self,**kwargs):
         super(Edit_Screen,self).__init__(**kwargs)
         self.appli= App.get_running_app()
-        Clock.schedule_interval(self.update, 0.1)
+        #Clock.schedule_interval(self.update, 0.1)
 
         self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
         self._keyboard.bind(on_key_down=self._on_keyboard_down)
@@ -222,11 +234,12 @@ class Edit_Screen(Screen):
         self.check_current_project()
 
 
-
     def check_current_project(self):
         self.ids.Project_name_label.text = self.appli.session.current_project.name
         self.ids.Project_students_label.text = ", ".join(self.appli.session.current_project.members)
         self.ids.Project_path_label.text = self.appli.session.current_project.group
+        self.ids.mark_input.text = self.appli.session.current_project.mark
+        self.ids.comm_input.text = self.appli.session.current_project.comm
 
 
     def select_previous_project(self):
