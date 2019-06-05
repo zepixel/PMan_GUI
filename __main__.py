@@ -54,7 +54,7 @@ class Main_Footer(BoxLayout):
         self.appli = App.get_running_app()
     
     def get_session_message(self,dt):
-        self.ids["Footer_Label"].text = self.appli.session_0.message
+        self.ids["Footer_Label"].text = self.appli.session.message
 
 
 
@@ -80,7 +80,7 @@ class SearchBar(TextInput):
 
     def on_text(self,instance, value):
         #print('The widget', instance, 'have:', value)
-        self.SearchResult = self.appli.session_0.Search_Project(value)
+        self.SearchResult = self.appli.session.Search_Project(value)
         self.parent.parent.ids["ProjectDisplay"].VisibleBtnList = []
         
         clear()
@@ -120,7 +120,7 @@ class Project_Display(StackLayout):
 
         # Recupération de l'appli principale
         self.appli= App.get_running_app()
-        self.project_list = self.appli.session_0.project_list
+        self.project_list = self.appli.session.project_list
 
         # Horloge
         self.button_list_constructor()
@@ -152,8 +152,8 @@ class Project_Display(StackLayout):
     
 
     def attribute_current_project(self,Btn, Btn_id):
-        self.appli.session_0.current_project = self.project_list[int(Btn_id)]
-        print (self.appli.session_0.current_project)
+        self.appli.session.current_project = self.project_list[int(Btn_id)]
+        print (self.appli.session.current_project)
         return
 
 
@@ -169,7 +169,7 @@ class Project_Display(StackLayout):
     # Current project highlight button
     def highlight_current_project_button(self):
         for id in self.ids:
-            if id == str(self.appli.session_0.current_project.index):
+            if id == str(self.appli.session.current_project.index):
                 self.ids[id].state= "down"
             else:
                 self.ids[id].state= "normal"
@@ -224,17 +224,17 @@ class Edit_Screen(Screen):
 
 
     def check_current_project(self):
-        self.ids.Project_name_label.text = self.appli.session_0.current_project.name
-        self.ids.Project_students_label.text = ", ".join(self.appli.session_0.current_project.members)
-        self.ids.Project_path_label.text = self.appli.session_0.current_project.group
+        self.ids.Project_name_label.text = self.appli.session.current_project.name
+        self.ids.Project_students_label.text = ", ".join(self.appli.session.current_project.members)
+        self.ids.Project_path_label.text = self.appli.session.current_project.group
 
 
     def select_previous_project(self):
-        self.appli.session_0.select_previous_result_project()
+        self.appli.session.select_previous_result_project()
 
 
     def select_next_project(self):
-        self.appli.session_0.select_next_result_project()
+        self.appli.session.select_next_result_project()
 
 
     # Keyboard init
@@ -274,9 +274,9 @@ class PmanApp(App):
     def build(self):
         
         # Project Handler
-        self.session_0 = session("session 0","./session/session.json" )
-        self.session_0.load_projects()
-        self.session_0.current_project= self.session_0.project_list[0]
+        self.session = session("session 0","./session/session.json" )
+        self.session.load_projects()
+        self.session.current_project= self.session.project_list[0]
 
         # UI 
         self.body = Main_body()
