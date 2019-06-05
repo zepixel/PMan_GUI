@@ -206,8 +206,41 @@
 
 
         # 2 - NOTE + COMMENTAIRE
-        Label:
-            text:"Note + Comm"
+        
+        BoxLayout:
+            orientation:"vertical"
+            
+            BoxLayout:
+                orientation:"horizontal"
+                size_hint_x:1
+                size_hint_y:0.2
+
+                Label:
+                    size_hint_x:1
+                    size_hint_y:0.2
+                    text:"Note"
+
+                TextInput:
+                    id: note_input
+                    size_hint_y:1
+                    size_hint_x:0.3
+                   
+                
+                Label:
+                    texte:""
+
+
+            BoxLayout:
+                orientation:"horizontal"
+            
+                Label:
+                    text:"Commentaire"
+
+                TextInput:
+                    id: comm_input
+
+
+
 
         # 3 - TAGS
         Label:
