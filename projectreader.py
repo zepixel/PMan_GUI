@@ -96,14 +96,14 @@ class session:
 
         for index,fichier in enumerate(fichiers):
             
-            project_members_list = fichier.split("_")[1]
-            project_members_list = project_members_list.split("-")
+            project_members_list = fichier.split(self.class_separator)[1]
+            project_members_list = project_members_list.split(self.members_separator)
 
             loading_project = project()
 
-            loading_project.name = fichier.split("_")[2]
+            loading_project.name = fichier.split(self.class_separator)[2]
             loading_project.members = project_members_list
-            loading_project.group = fichier.split("_")[0]
+            loading_project.group = fichier.split(self.class_separator)[0]
             loading_project.filepath = fichier
             loading_project.index = index
 
