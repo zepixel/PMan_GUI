@@ -24,7 +24,7 @@ class project:
         self.index = 0
 
 
-    def display(self):
+    def print(self):
         # Affichage d'un seul projet.
         print(self.name, "réalisé par", ", ".join(self.members), "en section", self.group, "\n" , "NOTE: ", self.mark,"\nCommentaire: ", self.comm)
         #input("")
@@ -114,7 +114,7 @@ class session:
 
     def print_project_list(self):   
         for project in self.project_list:
-            project.display()
+            project.print()
             print("\n")
 
 

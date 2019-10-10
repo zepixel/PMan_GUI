@@ -154,10 +154,11 @@ class Project_Display(StackLayout):
     def attribute_current_project(self,Btn, Btn_id):
         self.appli.session.current_project = self.project_list[int(Btn_id)]
         print (self.appli.session.current_project)
-        
+        self.appli.session.current_project.print()
         #status = self.root.ids.StatusBoxLayout.ids.status  https://stackoverflow.com/questions/43450700/kivy-python-how-to-access-to-an-external-child-class-from-the-root-class-face
 
-
+    # Et c'est ici que ça merde.
+        #self.appli.root.ids.Project_name_label.text = self.appli.session.current_project.name
         #self.ids.Edit_Screen.ids.Project_name_label.text = self.appli.session.current_project.name
         #self.ids.Project_students_label.text = ", ".join(self.appli.session.current_project.members)
         #self.ids.Project_path_label.text = self.appli.session.current_project.group
@@ -285,14 +286,14 @@ class PmanApp(App):
 
 
     def build(self):
-        
-        # Project Handler
+                
         self.session = session("session 0","./session/session.json" )
         self.session.load_projects()
         self.session.current_project= self.session.project_list[0]
 
         # UI 
         self.body = Main_body()
+        
         return self.body
 
 
